@@ -1,9 +1,33 @@
+# Environment / API keys
 .env
 .env.local
 .env.*.local
 
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
+*.pyd
 
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# Node
 node_modules/
