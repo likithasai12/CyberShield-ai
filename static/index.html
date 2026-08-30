@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield AI — Don't just detect the scam. Understand it.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🛡️</span>
+                <div>
+                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">CyberShield AI</span>
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400 block -mt-1">Intelligent Threat Engine</span>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="hidden md:flex space-x-1">
+                <button data-tab="scanner" class="nav-link px-3 py-2 text-sm font-semibold rounded-lg text-cyan-400 border-b-2 border-cyan-400 bg-slate-800/60 transition-all">
+                    🛡️ Scanner
+                </button>
+                <button data-tab="recovery" class="nav-link px-3 py-2 text-sm font-semibold rounded-lg text-slate-400 border-b-2 border-transparent hover:text-slate-200 transition-all">
+                    🆘 Recovery
+                </button>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation Bar -->
+        <div class="flex md:hidden overflow-x-auto border-t border-slate-800/60 px-2 py-1 space-x-1">
+            <button data-tab="scanner" class="nav-link px-2.5 py-1.5 text-xs font-medium rounded text-cyan-400 whitespace-nowrap">🛡️ Scanner</button>
+            <button data-tab="recovery" class="nav-link px-2.5 py-1.5 text-xs font-medium rounded text-slate-400 whitespace-nowrap">🆘 Recovery</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- Hero Section -->
+        <section class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-3">
+                Don't just detect the scam. <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">Understand it.</span>
+            </h1>
+            <p class="text-slate-400 text-base sm:text-lg max-w-3xl mx-auto mb-6">
+                Analyze suspicious URLs, SMS messages, emails and QR codes before you interact. Multi-layer AI detection backed by explainable evidence and actionable safety guidance.
+            </p>
+            <div class="inline-flex items-center gap-2 sm:gap-4 text-xs sm:text-sm font-semibold text-slate-300 bg-slate-900/60 px-4 py-2 rounded-full border border-slate-800">
+                <span class="text-cyan-400">DETECT</span> ➔ 
+                <span class="text-blue-400">EXPLAIN</span> ➔ 
+                <span class="text-indigo-400">PROTECT</span> ➔ 
+                <span class="text-purple-400">REPORT</span> ➔ 
+                <span class="text-emerald-400">EDUCATE</span>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 1: SCANNER ==================== -->
+        <section id="tab-scanner" class="tab-panel space-y-8">
+            <div id="scanner-header" class="glass-panel p-6 sm:p-8 max-w-4xl mx-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+                        <span>⚡</span> CyberShield Risk Scanner
+                    </h2>
+                    <span class="text-xs text-slate-400 font-mono">No Account Required</span>
+                </div>
+
+                <!-- Input Type Switcher -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+                    <button data-scan-type="url" class="scan-type-btn py-2.5 px-3 rounded-lg border text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-cyan-500/20 text-cyan-300 border-cyan-500/50">
+                        🔗 URL
+                    </button>
+                    <button data-scan-type="message" class="scan-type-btn py-2.5 px-3 rounded-lg border text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-800/40 text-slate-400 border-slate-700/50">
+                        💬 Message
+                    </button>
+                    <button data-scan-type="email" class="scan-type-btn py-2.5 px-3 rounded-lg border text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-800/40 text-slate-400 border-slate-700/50">
+                        📧 Email
+                    </button>
+                    <button data-scan-type="qr" class="scan-type-btn py-2.5 px-3 rounded-lg border text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-800/40 text-slate-400 border-slate-700/50">
+                        📱 QR Code
+                    </button>
+                </div>
+
+                <!-- 1. URL Form -->
+                <div id="form-url" class="scan-form-container">
+                    <form id="url-scan-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Paste Suspicious URL / Web Address</label>
+                            <input type="text" id="scan-url-input" placeholder="e.g. http://sbi-kyc-update.temp-web.xyz/login" 
+                                class="w-full px-4 py-3 bg-slate-900/80 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-mono text-sm">
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-base">
+                            🛡️ Analyze with CyberShield
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 2. Message Form -->
+                <div id="form-message" class="scan-form-container hidden">
+                    <form id="msg-scan-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Paste Suspicious SMS / WhatsApp / Chat Message</label>
+                            <textarea id="scan-msg-input" rows="4" placeholder="e.g. URGENT! Your bank account will be blocked today. Verify your account immediately using the link below..." 
+                                class="w-full px-4 py-3 bg-slate-900/80 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-base">
+                            🛡️ Analyze with CyberShield
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 3. Email Form -->
+                <div id="form-email" class="scan-form-container hidden">
+                    <form id="email-scan-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Email Subject Line (Optional)</label>
+                            <input type="text" id="scan-email-subject" placeholder="e.g. Immediate Action Required: Account Deactivation Notice" 
+                                class="w-full px-4 py-2.5 bg-slate-900/80 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm mb-3">
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Email Body Text</label>
+                            <textarea id="scan-email-body" rows="5" placeholder="Paste full email body content..." 
+                                class="w-full px-4 py-3 bg-slate-900/80 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-base">
+                            🛡️ Analyze with CyberShield
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 4. QR Form -->
+                <div id="form-qr" class="scan-form-container hidden">
+                    <form id="qr-scan-form" class="space-y-4">
+                        <div id="qr-dropzone" class="border-2 border-dashed border-slate-700 hover:border-cyan-400/60 rounded-xl p-8 text-center cursor-pointer transition-all bg-slate-900/40">
+                            <span class="text-4xl block mb-2">📱</span>
+                            <p class="text-sm font-semibold text-slate-200 mb-1">Drag & Drop QR Code Image or Click to Upload</p>
+                            <p class="text-xs text-slate-500 mb-3">Supports JPG, PNG, WebP (Max 10 MB). Destination is decoded safely without navigating.</p>
+                            <input type="file" id="qr-file-input" accept="image/*" class="hidden">
+                            <button type="button" onclick="document.getElementById('qr-file-input').click()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700">
+                                Select QR Image File
+                            </button>
+                            <p id="qr-file-name" class="text-xs text-cyan-400 mt-2 font-mono"></p>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-base">
+                            📱 Decode & Analyze QR Destination
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Error Container -->
+                <div id="scan-error-container" class="hidden mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-xs text-red-400 text-center"></div>
+            </div>
+
+            <!-- Loader State -->
+            <div id="scan-loader" class="hidden text-center py-12">
+                <div class="inline-block w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-base font-semibold text-cyan-300">Analyzing with CyberShield Risk Engine...</p>
+                <p class="text-xs text-slate-400 mt-1">Extracting structural patterns, social engineering markers & checking threat memory</p>
+            </div>
+
+            <!-- Results Display Container -->
+            <div id="scan-results-container" class="hidden max-w-4xl mx-auto space-y-6">
+                <!-- Header Results Card -->
+                <div class="glass-panel p-6 sm:p-8">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-6 mb-6">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-slate-400 font-mono block mb-1">Risk Classification</span>
+                            <div class="flex flex-col">
+                                <span id="res-classification-main" class="text-3xl sm:text-4xl font-black text-emerald-400 flex items-center gap-2">
+                                    🟢 SAFE
+                                </span>
+                                <span id="res-classification-secondary" class="text-sm font-semibold text-slate-400 mt-0.5">
+                                    92% safe
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <span class="text-xs uppercase tracking-wider text-slate-400 font-mono block mb-1">Threat Category</span>
+                            <span id="res-threat-category" class="text-lg font-bold text-slate-100">Safe Digital Content</span>
+                        </div>
+                    </div>
+
+                    <!-- Analyzed Signature -->
+                    <div class="mb-6 p-3 bg-slate-900/80 rounded-lg border border-slate-800">
+                        <span class="text-[11px] uppercase tracking-wider text-slate-500 font-mono block mb-1">Analyzed Input Signature</span>
+                        <p id="res-normalized-input" class="text-xs font-mono text-slate-300 break-all"></p>
+                    </div>
+
+                    <!-- Stored Intelligence Match Notification -->
+                    <div id="res-stored-intel-box" class="hidden mb-6"></div>
+
+                    <!-- 2-Column Details Layout -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- Detected Indicators -->
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-200 mb-3 flex items-center gap-2">
+                                <span>⚠️</span> Detected Suspicious Indicators
+                            </h4>
+                            <ul id="res-indicators-list" class="space-y-2"></ul>
+                        </div>
+
+                        <!-- Why Risky & Impact -->
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200 mb-2 flex items-center gap-2">
+                                    <span>🧠</span> Why is it risky?
+                                </h4>
+                                <p id="res-why-risky" class="text-xs text-slate-300 leading-relaxed bg-slate-900/40 p-3 rounded-lg border border-slate-800"></p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200 mb-2 flex items-center gap-2">
+                                    <span>⚡</span> Possible Impact
+                                </h4>
+                                <ul id="res-impact-list" class="space-y-1 text-xs text-slate-300 bg-slate-900/40 p-3 rounded-lg border border-slate-800"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Actions -->
+                    <div class="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl mb-6">
+                        <h4 class="text-sm font-bold text-emerald-300 mb-3 flex items-center gap-2">
+                            <span>🛡️</span> Recommended Safety Actions
+                        </h4>
+                        <ul id="res-recommendations-list" class="space-y-2"></ul>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center justify-end pt-4 border-t border-slate-800">
+                        <button onclick="document.querySelector('.nav-link[data-tab=\'recovery\']').click()" class="w-full sm:w-auto px-4 py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
+                            🆘 I've Already Interacted
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: RECOVERY ==================== -->
+        <section id="tab-recovery" class="tab-panel hidden space-y-6 max-w-4xl mx-auto">
+            <div class="glass-panel p-6">
+                <h2 class="text-xl font-bold text-slate-100 mb-2">🆘 Immediate Recovery Guidance</h2>
+                <p class="text-xs text-slate-400 mb-6">If you have already interacted with a suspicious link, message, or QR code, select your situation below for step-by-step safety instructions.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+                    <button data-recovery-key="clicked_link" class="recovery-option-btn p-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-left transition-all">
+                        <span class="text-2xl block mb-1">🔗</span>
+                        <span class="text-xs font-bold text-slate-200 block">I Clicked the Link</span>
+                        <span class="text-[11px] text-slate-400">Browser opened suspicious page</span>
+                    </button>
+
+                    <button data-recovery-key="entered_password" class="recovery-option-btn p-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-left transition-all">
+                        <span class="text-2xl block mb-1">🔐</span>
+                        <span class="text-xs font-bold text-slate-200 block">Entered Password</span>
+                        <span class="text-[11px] text-slate-400">Typed login or identity details</span>
+                    </button>
+
+                    <button data-recovery-key="shared_otp" class="recovery-option-btn p-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-left transition-all">
+                        <span class="text-2xl block mb-1">🔑</span>
+                        <span class="text-xs font-bold text-slate-200 block">Shared OTP Code</span>
+                        <span class="text-[11px] text-slate-400">Provided 6-digit OTP code</span>
+                    </button>
+
+                    <button data-recovery-key="entered_card" class="recovery-option-btn p-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-left transition-all">
+                        <span class="text-2xl block mb-1">💳</span>
+                        <span class="text-xs font-bold text-slate-200 block">Entered Card/Bank Info</span>
+                        <span class="text-[11px] text-slate-400">Typed CVV or debit card number</span>
+                    </button>
+
+                    <button data-recovery-key="transferred_money" class="recovery-option-btn p-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-left transition-all">
+                        <span class="text-2xl block mb-1">🚨</span>
+                        <span class="text-xs font-bold text-slate-200 block">Transferred Money</span>
+                        <span class="text-[11px] text-slate-400">Sent UPI or NetBanking funds</span>
+                    </button>
+
+                    <button data-recovery-key="unsure" class="recovery-option-btn p-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-left transition-all">
+                        <span class="text-2xl block mb-1">❓</span>
+                        <span class="text-xs font-bold text-slate-200 block">Not Sure</span>
+                        <span class="text-[11px] text-slate-400">General protective steps</span>
+                    </button>
+                </div>
+
+                <div id="recovery-output" class="hidden"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>🛡️ CyberShield AI — Intelligent Cyber-Fraud, Phishing & Scam Detection Platform</p>
+            <p class="mt-1 text-[11px] text-slate-600">Decision-support & awareness platform. Does not guarantee 100% detection accuracy.</p>
+        </div>
+    </footer>
+
+    <!-- App JavaScript Modules -->
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/scanner.js"></script>
+    <script src="/static/js/recovery.js"></script>
+</body>
+</html>
